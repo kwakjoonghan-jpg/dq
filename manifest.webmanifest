@@ -1,0 +1,16 @@
+{
+  "name": "DQ Loop",
+  "short_name": "DQ Loop",
+  "description": "하루 루틴을 체크하고, 달성한 만큼 스스로에게 보상하는 루틴 수첩",
+  "lang": "ko",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f2ea",
+  "theme_color": "#f5f2ea",
+  "icons": [
+    { "src": "favicon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "dqloop-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
