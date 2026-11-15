@@ -1133,8 +1133,11 @@ function lsJSON(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):nu
 function detectLocalSources(){
  const out={};const q=lsJSON(DQ_KEYS.q);
  if(Array.isArray(q)&&(q.length||(lsJSON(DQ_KEYS.ql)||[]).length))out.dq={quests:q,questLogs:lsJSON(DQ_KEYS.ql)||[],rewards:lsJSON(DQ_KEYS.r)||[],purchaseLogs:lsJSON(DQ_KEYS.pl)||[],routineTransfers:lsJSON(DQ_KEYS.rt)||[],gistId:lsJSON(DQ_KEYS.gist)||localStorage.getItem(DQ_KEYS.gist)||'',token:lsJSON(DQ_KEYS.pat)||localStorage.getItem(DQ_KEYS.pat)||''};
- const l=lsJSON(LOOP_KEY);if(l&&Array.isArray(l.routines)&&l.completions)out.loop=l;
+ const l=lsJSON(LOOP_KEY);if(l&&Array.isArray(l.routines)&&l.completions&&loopHasRecords(l))out.loop=l;
  return out}
+/* 앱을 열기만 하고 아무것도 기록하지 않은 기본 상태는 '이전 기록'으로 보지 않는다 */
+function loopHasRecords(l){const days=Object.values(l.completions||{}).some(c=>c&&((c.done||[]).length||Object.keys(c.failed||{}).length));
+ const inst=Object.values(l.instants||{}).some(a=>Array.isArray(a)&&a.length);return days||inst||(l.transfers||[]).length>0||Object.keys(l.weeklyBriefings||{}).length>0}
 /* 파일·Gist 내용에서 어떤 앱의 데이터인지 판별 */
 function sniff(data){const out={};if(!data||typeof data!=='object')return out;
  if(data.v===1&&Array.isArray(data.ledger)&&Array.isArray(data.habits))out.native=data;
